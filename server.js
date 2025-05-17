@@ -4,8 +4,11 @@ const path = require("path");
 
 const PORT = process.env.PORT || 3500;
 
+app.use(express.json()); // this allow to receive and parese json data
+
+// express.static is a build in middleware that is relative path where is the server.js file
 // say to express where to find static files that we will use in the serve like images, css etc...
-app.use("/", express.static(path.join(__dirname, "/public"))); // __dirname = global var that node understand and look on the folder we are in
+app.use("/", express.static(path.join(__dirname, "public"))); // __dirname = global var that node understand and look on the folder we are in
 
 app.use("/", require("./routes/root"));
 
