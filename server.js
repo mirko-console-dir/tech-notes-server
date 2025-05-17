@@ -1,11 +1,22 @@
 const express = require("express");
 const app = express();
 const path = require("path");
+const { logger } = require("./middleware/logger");
+const errorHandler = require("./middleware/errorHandler");
+const cookieParser = require("cookie-parser");
+const cors = require("cors");
+const corsOptions = require("./config/corsOptions");
 
 const PORT = process.env.PORT || 3500;
 
+app.use(logger);
+app.use(cors(corsOptions));
+app.use(express.json()); // this allow to receive and parese json data
+app.use(cookieParser); // we can parse cookies that we can use
+
+// express.static is a build in middleware that is relative path where is the server.js file
 // say to express where to find static files that we will use in the serve like images, css etc...
-app.use("/", express.static(path.join(__dirname, "/public"))); // __dirname = global var that node understand and look on the folder we are in
+app.use("/", express.static(path.join(__dirname, "public"))); // __dirname = global var that node understand and look on the folder we are in
 
 app.use("/", require("./routes/root"));
 
@@ -24,5 +35,7 @@ app.all(
     }
   }
 );
+
+app.use(errorHandler);
 
 app.listen(PORT, () => console.log(`Server runnning on port ${PORT}`));
