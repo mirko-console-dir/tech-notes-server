@@ -1,3 +1,4 @@
+require("dotenv").config(); // allow to use .env in all files
 const express = require("express");
 const app = express();
 const path = require("path");
