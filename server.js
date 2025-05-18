@@ -18,7 +18,7 @@ connectDB();
 app.use(logger);
 app.use(cors(corsOptions));
 app.use(express.json()); // this allow to receive and parese json data
-app.use(cookieParser); // we can parse cookies that we can use
+app.use(cookieParser()); // we can parse cookies that we can use
 
 // express.static is a build in middleware that is relative path where is the server.js file
 // say to express where to find static files that we will use in the serve like images, css etc...
