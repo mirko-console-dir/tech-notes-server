@@ -7,8 +7,6 @@ const bcrypt = require("bcrypt"); // encypt psw
  * 400 BAD REQUEST
  * 409 CONFLICT
  *
- *
- *
  */
 
 // @desc Get all users
@@ -20,7 +18,7 @@ const getAllUsers = asyncHandler(async (req, res) => {
   // mongoose usually return a document with methods (save) and other methods attached
   const users = await User.find().select("-password").lean();
 
-  if (!users) {
+  if (!users?.length) {
     // if not put the return here we could have problem with the headers if already setted (where you try to send multiple responses for a single request.)
     return res.status(400).json({ message: "No users found" });
   }
