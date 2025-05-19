@@ -18,7 +18,7 @@ connectDB();
 app.use(logger);
 app.use(cors(corsOptions));
 app.use(express.json()); // this allow to receive and parese json data
-app.use(cookieParser); // we can parse cookies that we can use
+app.use(cookieParser()); // we can parse cookies that we can use
 
 // express.static is a build in middleware that is relative path where is the server.js file
 // say to express where to find static files that we will use in the serve like images, css etc...
@@ -27,6 +27,7 @@ app.use("/", express.static(path.join(__dirname, "public"))); // __dirname = glo
 // ROUTES
 app.use("/", require("./routes/root"));
 app.use("/users", require("./routes/userRoutes"));
+app.use("/notes", require("./routes/noteRoutes"));
 
 // this is trigger when ther is no route for the request
 app.all(
