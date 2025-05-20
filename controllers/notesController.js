@@ -38,6 +38,9 @@ const createNewNote = asyncHandler(async (req, res) => {
     return res.status(400).json({ message: "All fields are required" });
   }
 
+  // Check if user exist
+  const isUserExist = await User.findOne({ user }).lean().exec();
+  if (!isUserExist) return res.status(404).json({ message: "User not exist" });
   // Check for duplicate title
   const duplicate = await Note.findOne({ title }).lean().exec();
 
